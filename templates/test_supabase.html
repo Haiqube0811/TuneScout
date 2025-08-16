@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase接続テスト</title>
+</head>
+<body>
+    <h1>Supabase接続テスト</h1>
+    <div id="status">テスト中...</div>
+    <div id="details"></div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+        const { createClient } = supabase;
+        
+        console.log('Supabase URL:', '{{ supabase_url }}');
+        console.log('Supabase Key:', '{{ supabase_key }}');
+        
+        try {
+            const supabaseClient = createClient(
+                '{{ supabase_url }}',
+                '{{ supabase_key }}'
+            );
+            
+            document.getElementById('status').innerHTML = 'Supabaseクライアント作成成功';
+            document.getElementById('details').innerHTML = `
+                <p>URL: {{ supabase_url }}</p>
+                <p>Key: {{ supabase_key }}</p>
+            `;
+            
+            // 接続テスト
+            supabaseClient.auth.getSession().then(({ data, error }) => {
+                if (error) {
+                    document.getElementById('status').innerHTML = 'エラー: ' + error.message;
+                } else {
+                    document.getElementById('status').innerHTML = '接続成功！';
+                }
+            });
+            
+        } catch (error) {
+            document.getElementById('status').innerHTML = 'クライアント作成エラー: ' + error.message;
+        }
+    </script>
+</body>
+</html>

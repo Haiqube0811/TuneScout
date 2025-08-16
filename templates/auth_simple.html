@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuneScout - 認証</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .auth-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo h1 {
+            color: #333;
+            margin: 0;
+            font-size: 28px;
+        }
+        .logo p {
+            color: #666;
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background: #5a67d8;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            background: #f5f5f5;
+            cursor: pointer;
+            border: none;
+        }
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+        .form-container {
+            display: none;
+        }
+        .form-container.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo">
+            <h1>🎵 TuneScout</h1>
+            <p>音楽発掘レコメンドシステム</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showForm('login')">ログイン</button>
+            <button class="tab" onclick="showForm('register')">新規登録</button>
+        </div>
+
+        <div id="login-form" class="form-container active">
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">メールアドレス</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">パスワード</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit">ログイン</button>
+                <button type="button" onclick="resendConfirmation()" style="background: #28a745; margin-top: 10px;">確認メール再送信</button>
+            </form>
+        </div>
+
+        <div id="register-form" class="form-container">
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="register-email">メールアドレス</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">パスワード</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <button type="submit">新規登録</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+        let supabaseClient;
+        
+        // Supabase初期化を非同期で実行
+        document.addEventListener('DOMContentLoaded', function() {
+            const { createClient } = supabase;
+            
+            try {
+                supabaseClient = createClient(
+                    '{{ supabase_url }}',
+                    '{{ supabase_key }}'
+                );
+                console.log('Supabaseクライアント初期化成功');
+            } catch (error) {
+                console.error('Supabase初期化エラー:', error);
+                document.getElementById('register-form').innerHTML = '<p>認証サービスが利用できません</p>';
+                document.getElementById('login-form').innerHTML = '<p>認証サービスが利用できません</p>';
+            }
+        });
+
+        function showForm(type) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.form-container').forEach(form => form.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(type + '-form').classList.add('active');
+        }
+
+        async function resendConfirmation() {
+            if (!supabaseClient) {
+                alert('認証サービスが初期化されていません');
+                return;
+            }
+            
+            const email = document.getElementById('login-email').value;
+            if (!email) {
+                alert('メールアドレスを入力してください');
+                return;
+            }
+            
+            try {
+                const { error } = await supabaseClient.auth.resend({
+                    type: 'signup',
+                    email: email
+                });
+                
+                if (error) throw error;
+                
+                alert('確認メールを再送信しました。メールボックスをチェックしてください。');
+            } catch (error) {
+                console.error('Resend error:', error);
+                alert('再送信エラー: ' + error.message);
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            if (!supabaseClient) {
+                alert('認証サービスが初期化されていません');
+                return;
+            }
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    if (error.message.includes('Email not confirmed')) {
+                        alert('メールアドレスが確認されていません。確認メールをチェックするか、管理者にお問い合わせください。');
+                        return;
+                    }
+                    throw error;
+                }
+                
+                alert('ログインしました！');
+                window.location.href = '/dashboard';
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('ログインエラー: ' + error.message);
+            }
+        }
+
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            if (!supabaseClient) {
+                alert('認証サービスが初期化されていません');
+                return;
+            }
+            
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+
+            console.log('Attempting registration with:', { email, password: '***' });
+
+            try {
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email: email,
+                    password: password
+                });
+
+                console.log('Registration response:', { data, error });
+
+                if (error) throw error;
+                
+                // ユーザー登録成功時にプロフィール作成
+                if (data.user) {
+                    try {
+                        const profileResponse = await fetch('/auth/create-profile', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                user_id: data.user.id,
+                                email: data.user.email
+                            })
+                        });
+                        
+                        if (!profileResponse.ok) {
+                            console.warn('プロフィール作成に失敗しました');
+                        }
+                    } catch (profileError) {
+                        console.warn('プロフィール作成エラー:', profileError);
+                    }
+                }
+                
+                if (data.user && !data.user.email_confirmed_at) {
+                    alert('登録しました！確認メールをチェックしてください。\n\n開発環境の場合、Supabase Dashboardで手動確認が必要な場合があります。');
+                } else {
+                    alert('登録が完了しました！');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('登録エラー: ' + error.message);
+            }
+        }
+
+        // 認証状態の監視をDOMContentLoaded内で実行
+        document.addEventListener('DOMContentLoaded', function() {
+            if (supabaseClient) {
+                supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                    if (event === 'SIGNED_IN' && session) {
+                        console.log('User signed in:', session.user);
+                        
+                        // ログイン時にプロフィールが存在しない場合作成
+                        try {
+                            await fetch('/auth/create-profile', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    user_id: session.user.id,
+                                    email: session.user.email
+                                })
+                            });
+                        } catch (error) {
+                            console.warn('プロフィール作成エラー:', error);
+                        }
+                        
+                        window.location.href = '/dashboard';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

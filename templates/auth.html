@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuneScout - 認証</title>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/@supabase/auth-ui-web@0.4.2/dist/index.umd.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@supabase/auth-ui-web@0.4.2/dist/index.css" />
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .auth-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo h1 {
+            color: #333;
+            margin: 0;
+            font-size: 28px;
+        }
+        .logo p {
+            color: #666;
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo">
+            <h1>🎵 TuneScout</h1>
+            <p>音楽発掘レコメンドシステム</p>
+        </div>
+        <div id="auth-container"></div>
+    </div>
+
+    <script>
+        const { createClient } = supabase;
+        
+        const supabaseClient = createClient(
+            '{{ supabase_url }}',
+            '{{ supabase_key }}'
+        );
+
+        document.getElementById('auth-container').innerHTML = `
+            <div style="text-align: center; padding: 20px;">
+                <p>認証システムを準備中です...</p>
+                <p><a href="/dashboard" style="color: #667eea; text-decoration: none;">ダッシュボードへ進む</a></p>
+            </div>
+        `;
+
+        // 認証状態の監視
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN') {
+                console.log('User signed in:', session.user);
+                // ダッシュボードにリダイレクト
+                window.location.href = '/dashboard';
+            }
+            if (event === 'SIGNED_OUT') {
+                console.log('User signed out');
+            }
+        });
+    </script>
+</body>
+</html>

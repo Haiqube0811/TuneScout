@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supabase Connection Test</title>
+</head>
+<body>
+    <h1>Supabase Connection Test</h1>
+    <div id="result">Testing...</div>
+    
+    <script>
+        // Test direct fetch to Supabase URL
+        const supabaseUrl = 'https://yemnpwjzuufwdvsvflm.supabase.co';
+        
+        fetch(supabaseUrl + '/rest/v1/', {
+            method: 'GET',
+            headers: {
+                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllbW5wandqenV1ZndkdnN2ZmxtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUzNTc4NTUsImV4cCI6MjA3MDkzMzg1NX0.D2CUYtA6CDerTTMbIvZ3ppNwvtMU_snmiPKcBagfdjY'
+            }
+        })
+        .then(response => {
+            document.getElementById('result').innerHTML = `
+                <p>Status: ${response.status}</p>
+                <p>URL accessible: ${response.ok ? 'Yes' : 'No'}</p>
+            `;
+        })
+        .catch(error => {
+            document.getElementById('result').innerHTML = `
+                <p>Error: ${error.message}</p>
+                <p>This suggests the Supabase URL is not accessible</p>
+                <p><strong>Solution:</strong> You need to create a new Supabase project at <a href="https://supabase.com">supabase.com</a></p>
+            `;
+        });
+    </script>
+</body>
+</html>

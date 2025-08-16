@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuneScout - ダッシュボード</title>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎵 TuneScout Dashboard</h1>
+        <div class="user-info">
+            <span id="user-email">Loading...</span>
+            <button class="logout-btn" onclick="signOut()">ログアウト</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>ようこそ！</h2>
+        <p>TuneScoutへようこそ。新しい音楽を発見しましょう。</p>
+        
+        <div id="user-details">
+            <h3>ユーザー情報</h3>
+            <pre id="user-json"></pre>
+        </div>
+    </div>
+
+    <script>
+        const { createClient } = supabase;
+
+        const supabaseClient = createClient(
+            '{{ supabase_url }}',
+            '{{ supabase_key }}'
+        );
+
+        // 認証状態をチェック
+        async function checkAuth() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            
+            if (!session) {
+                window.location.href = '/auth';
+                return;
+            }
+
+            // ユーザー情報を表示
+            document.getElementById('user-email').textContent = session.user.email;
+            document.getElementById('user-json').textContent = JSON.stringify(session.user, null, 2);
+        }
+
+        // ログアウト
+        async function signOut() {
+            await supabaseClient.auth.signOut();
+            window.location.href = '/auth';
+        }
+
+        // ページ読み込み時に認証チェック
+        checkAuth();
+    </script>
+</body>
+</html>

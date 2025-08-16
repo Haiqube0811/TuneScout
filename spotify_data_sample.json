@@ -1,0 +1,681 @@
+[
+  {
+    "album_type": "album",
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/05mWue0RvlBL9VqcG3xCwK"
+        },
+        "href": "https://api.spotify.com/v1/artists/05mWue0RvlBL9VqcG3xCwK",
+        "id": "05mWue0RvlBL9VqcG3xCwK",
+        "name": "Jin Dogg",
+        "type": "artist",
+        "uri": "spotify:artist:05mWue0RvlBL9VqcG3xCwK"
+      }
+    ],
+    "available_markets": [
+      "JP"
+    ],
+    "external_urls": {
+      "spotify": "https://open.spotify.com/album/2DmeP1BrvCJPiScGmdRTwo"
+    },
+    "href": "https://api.spotify.com/v1/albums/2DmeP1BrvCJPiScGmdRTwo",
+    "id": "2DmeP1BrvCJPiScGmdRTwo",
+    "images": [
+      {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e0225783922075b4f8dafcf8a0d",
+        "width": 300
+      },
+      {
+        "height": 64,
+        "url": "https://i.scdn.co/image/ab67616d0000485125783922075b4f8dafcf8a0d",
+        "width": 64
+      },
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab67616d0000b27325783922075b4f8dafcf8a0d",
+        "width": 640
+      }
+    ],
+    "name": "Pain Makes You Better",
+    "release_date": "2025-08-15",
+    "release_date_precision": "day",
+    "total_tracks": 13,
+    "type": "album",
+    "uri": "spotify:album:2DmeP1BrvCJPiScGmdRTwo"
+  },
+  {
+    "album_type": "album",
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/5VxQzcVrakID2E4UxaDPNs"
+        },
+        "href": "https://api.spotify.com/v1/artists/5VxQzcVrakID2E4UxaDPNs",
+        "id": "5VxQzcVrakID2E4UxaDPNs",
+        "name": "Kvi Baba",
+        "type": "artist",
+        "uri": "spotify:artist:5VxQzcVrakID2E4UxaDPNs"
+      }
+    ],
+    "available_markets": [
+      "AR",
+      "AU",
+      "AT",
+      "BE",
+      "BO",
+      "BR",
+      "BG",
+      "CA",
+      "CL",
+      "CO",
+      "CR",
+      "CY",
+      "CZ",
+      "DK",
+      "DO",
+      "DE",
+      "EC",
+      "EE",
+      "SV",
+      "FI",
+      "FR",
+      "GR",
+      "GT",
+      "HN",
+      "HK",
+      "HU",
+      "IS",
+      "IE",
+      "IT",
+      "LV",
+      "LT",
+      "LU",
+      "MY",
+      "MT",
+      "MX",
+      "NL",
+      "NZ",
+      "NI",
+      "NO",
+      "PA",
+      "PY",
+      "PE",
+      "PH",
+      "PL",
+      "PT",
+      "SG",
+      "SK",
+      "ES",
+      "SE",
+      "CH",
+      "TW",
+      "TR",
+      "UY",
+      "US",
+      "GB",
+      "AD",
+      "LI",
+      "MC",
+      "ID",
+      "TH",
+      "VN",
+      "RO",
+      "IL",
+      "ZA",
+      "SA",
+      "AE",
+      "BH",
+      "QA",
+      "OM",
+      "KW",
+      "EG",
+      "MA",
+      "DZ",
+      "TN",
+      "LB",
+      "JO",
+      "PS",
+      "IN",
+      "BY",
+      "KZ",
+      "MD",
+      "UA",
+      "AL",
+      "BA",
+      "HR",
+      "ME",
+      "MK",
+      "RS",
+      "SI",
+      "KR",
+      "BD",
+      "PK",
+      "LK",
+      "GH",
+      "KE",
+      "NG",
+      "TZ",
+      "UG",
+      "AG",
+      "AM",
+      "BS",
+      "BB",
+      "BZ",
+      "BT",
+      "BW",
+      "BF",
+      "CV",
+      "CW",
+      "DM",
+      "FJ",
+      "GM",
+      "GE",
+      "GD",
+      "GW",
+      "GY",
+      "HT",
+      "JM",
+      "KI",
+      "LS",
+      "LR",
+      "MW",
+      "MV",
+      "ML",
+      "MH",
+      "FM",
+      "NA",
+      "NR",
+      "NE",
+      "PW",
+      "PG",
+      "PR",
+      "WS",
+      "SM",
+      "ST",
+      "SN",
+      "SC",
+      "SL",
+      "SB",
+      "KN",
+      "LC",
+      "VC",
+      "SR",
+      "TL",
+      "TO",
+      "TT",
+      "TV",
+      "VU",
+      "AZ",
+      "BN",
+      "BI",
+      "KH",
+      "CM",
+      "TD",
+      "KM",
+      "GQ",
+      "SZ",
+      "GA",
+      "GN",
+      "KG",
+      "LA",
+      "MO",
+      "MR",
+      "MN",
+      "NP",
+      "RW",
+      "TG",
+      "UZ",
+      "ZW",
+      "BJ",
+      "MG",
+      "MU",
+      "MZ",
+      "AO",
+      "CI",
+      "DJ",
+      "ZM",
+      "CD",
+      "CG",
+      "IQ",
+      "LY",
+      "TJ",
+      "VE",
+      "ET",
+      "XK"
+    ],
+    "external_urls": {
+      "spotify": "https://open.spotify.com/album/6JdrLXoyDYcFub6NGoB5oX"
+    },
+    "href": "https://api.spotify.com/v1/albums/6JdrLXoyDYcFub6NGoB5oX",
+    "id": "6JdrLXoyDYcFub6NGoB5oX",
+    "images": [
+      {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e027a99924d331598b4b23a7a0b",
+        "width": 300
+      },
+      {
+        "height": 64,
+        "url": "https://i.scdn.co/image/ab67616d000048517a99924d331598b4b23a7a0b",
+        "width": 64
+      },
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab67616d0000b2737a99924d331598b4b23a7a0b",
+        "width": 640
+      }
+    ],
+    "name": "Shout Out to Jesus",
+    "release_date": "2025-08-13",
+    "release_date_precision": "day",
+    "total_tracks": 10,
+    "type": "album",
+    "uri": "spotify:album:6JdrLXoyDYcFub6NGoB5oX"
+  },
+  {
+    "album_type": "single",
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/4QvgGvpgzgyUOo8Yp8LDm9"
+        },
+        "href": "https://api.spotify.com/v1/artists/4QvgGvpgzgyUOo8Yp8LDm9",
+        "id": "4QvgGvpgzgyUOo8Yp8LDm9",
+        "name": "Mrs. GREEN APPLE",
+        "type": "artist",
+        "uri": "spotify:artist:4QvgGvpgzgyUOo8Yp8LDm9"
+      }
+    ],
+    "available_markets": [
+      "AR",
+      "AU",
+      "AT",
+      "BE",
+      "BO",
+      "BR",
+      "BG",
+      "CA",
+      "CL",
+      "CO",
+      "CR",
+      "CY",
+      "CZ",
+      "DK",
+      "DO",
+      "DE",
+      "EC",
+      "EE",
+      "SV",
+      "FI",
+      "FR",
+      "GR",
+      "GT",
+      "HN",
+      "HK",
+      "HU",
+      "IS",
+      "IE",
+      "IT",
+      "LV",
+      "LT",
+      "LU",
+      "MY",
+      "MT",
+      "MX",
+      "NL",
+      "NZ",
+      "NI",
+      "NO",
+      "PA",
+      "PY",
+      "PE",
+      "PH",
+      "PL",
+      "PT",
+      "SG",
+      "SK",
+      "ES",
+      "SE",
+      "CH",
+      "TW",
+      "TR",
+      "UY",
+      "US",
+      "GB",
+      "AD",
+      "LI",
+      "MC",
+      "ID",
+      "JP",
+      "TH",
+      "VN",
+      "RO",
+      "IL",
+      "ZA",
+      "SA",
+      "AE",
+      "BH",
+      "QA",
+      "OM",
+      "KW",
+      "EG",
+      "MA",
+      "DZ",
+      "TN",
+      "LB",
+      "JO",
+      "PS",
+      "IN",
+      "KZ",
+      "MD",
+      "UA",
+      "AL",
+      "BA",
+      "HR",
+      "ME",
+      "MK",
+      "RS",
+      "SI",
+      "KR",
+      "BD",
+      "PK",
+      "LK",
+      "GH",
+      "KE",
+      "NG",
+      "TZ",
+      "UG",
+      "AG",
+      "AM",
+      "BS",
+      "BB",
+      "BZ",
+      "BT",
+      "BW",
+      "BF",
+      "CV",
+      "CW",
+      "DM",
+      "FJ",
+      "GM",
+      "GE",
+      "GD",
+      "GW",
+      "GY",
+      "HT",
+      "JM",
+      "KI",
+      "LS",
+      "LR",
+      "MW",
+      "MV",
+      "ML",
+      "MH",
+      "FM",
+      "NA",
+      "NR",
+      "NE",
+      "PW",
+      "PG",
+      "WS",
+      "SM",
+      "ST",
+      "SN",
+      "SC",
+      "SL",
+      "SB",
+      "KN",
+      "LC",
+      "VC",
+      "SR",
+      "TL",
+      "TO",
+      "TT",
+      "TV",
+      "VU",
+      "AZ",
+      "BN",
+      "BI",
+      "KH",
+      "CM",
+      "TD",
+      "KM",
+      "GQ",
+      "SZ",
+      "GA",
+      "GN",
+      "KG",
+      "LA",
+      "MO",
+      "MR",
+      "MN",
+      "NP",
+      "RW",
+      "TG",
+      "UZ",
+      "ZW",
+      "BJ",
+      "MG",
+      "MU",
+      "MZ",
+      "AO",
+      "CI",
+      "DJ",
+      "ZM",
+      "CD",
+      "CG",
+      "IQ",
+      "LY",
+      "TJ",
+      "VE",
+      "ET",
+      "XK"
+    ],
+    "external_urls": {
+      "spotify": "https://open.spotify.com/album/3kvf1IGbcVYzN5nGnExNx9"
+    },
+    "href": "https://api.spotify.com/v1/albums/3kvf1IGbcVYzN5nGnExNx9",
+    "id": "3kvf1IGbcVYzN5nGnExNx9",
+    "images": [
+      {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e02b93e9ef0578277b66047fb16",
+        "width": 300
+      },
+      {
+        "height": 64,
+        "url": "https://i.scdn.co/image/ab67616d00004851b93e9ef0578277b66047fb16",
+        "width": 64
+      },
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab67616d0000b273b93e9ef0578277b66047fb16",
+        "width": 640
+      }
+    ],
+    "name": "夏の影",
+    "release_date": "2025-08-10",
+    "release_date_precision": "day",
+    "total_tracks": 1,
+    "type": "album",
+    "uri": "spotify:album:3kvf1IGbcVYzN5nGnExNx9"
+  },
+  {
+    "album_type": "single",
+    "total_tracks": 1,
+    "is_playable": true,
+    "external_urls": {
+      "spotify": "https://open.spotify.com/album/4TbgFeZRBDeQsoKeIlmGSG"
+    },
+    "href": "https://api.spotify.com/v1/albums/4TbgFeZRBDeQsoKeIlmGSG",
+    "id": "4TbgFeZRBDeQsoKeIlmGSG",
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab67616d0000b2737731b19e717cae80920f24b0",
+        "width": 640
+      },
+      {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e027731b19e717cae80920f24b0",
+        "width": 300
+      },
+      {
+        "height": 64,
+        "url": "https://i.scdn.co/image/ab67616d000048517731b19e717cae80920f24b0",
+        "width": 64
+      }
+    ],
+    "name": "Life's Jigsaw",
+    "release_date": "2025-01-20",
+    "release_date_precision": "day",
+    "type": "album",
+    "uri": "spotify:album:4TbgFeZRBDeQsoKeIlmGSG",
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/1MO5T4XhA723Etycfo1kt8"
+        },
+        "href": "https://api.spotify.com/v1/artists/1MO5T4XhA723Etycfo1kt8",
+        "id": "1MO5T4XhA723Etycfo1kt8",
+        "name": "Genre.Zone",
+        "type": "artist",
+        "uri": "spotify:artist:1MO5T4XhA723Etycfo1kt8"
+      }
+    ]
+  },
+  {
+    "album_type": "single",
+    "total_tracks": 1,
+    "is_playable": true,
+    "external_urls": {
+      "spotify": "https://open.spotify.com/album/7AEfa3VQ4LkJykDLOsb5ZZ"
+    },
+    "href": "https://api.spotify.com/v1/albums/7AEfa3VQ4LkJykDLOsb5ZZ",
+    "id": "7AEfa3VQ4LkJykDLOsb5ZZ",
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab67616d0000b273aca9aec3dd90883b48f8b20b",
+        "width": 640
+      },
+      {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e02aca9aec3dd90883b48f8b20b",
+        "width": 300
+      },
+      {
+        "height": 64,
+        "url": "https://i.scdn.co/image/ab67616d00004851aca9aec3dd90883b48f8b20b",
+        "width": 64
+      }
+    ],
+    "name": "Love Song (Instrumental Master)",
+    "release_date": "2024-05-01",
+    "release_date_precision": "day",
+    "type": "album",
+    "uri": "spotify:album:7AEfa3VQ4LkJykDLOsb5ZZ",
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/6oFHbDLNTWmWlncSH9fXxu"
+        },
+        "href": "https://api.spotify.com/v1/artists/6oFHbDLNTWmWlncSH9fXxu",
+        "id": "6oFHbDLNTWmWlncSH9fXxu",
+        "name": "Amber Tyler",
+        "type": "artist",
+        "uri": "spotify:artist:6oFHbDLNTWmWlncSH9fXxu"
+      }
+    ]
+  },
+  {
+    "album_type": "single",
+    "total_tracks": 1,
+    "is_playable": true,
+    "external_urls": {
+      "spotify": "https://open.spotify.com/album/0w1CePsCgFHervbTUlBkPf"
+    },
+    "href": "https://api.spotify.com/v1/albums/0w1CePsCgFHervbTUlBkPf",
+    "id": "0w1CePsCgFHervbTUlBkPf",
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab67616d0000b2731f74f41f7a99ff4e882fdcbe",
+        "width": 640
+      },
+      {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e021f74f41f7a99ff4e882fdcbe",
+        "width": 300
+      },
+      {
+        "height": 64,
+        "url": "https://i.scdn.co/image/ab67616d000048511f74f41f7a99ff4e882fdcbe",
+        "width": 64
+      }
+    ],
+    "name": "Love Song",
+    "release_date": "2024-05-01",
+    "release_date_precision": "day",
+    "type": "album",
+    "uri": "spotify:album:0w1CePsCgFHervbTUlBkPf",
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/6oFHbDLNTWmWlncSH9fXxu"
+        },
+        "href": "https://api.spotify.com/v1/artists/6oFHbDLNTWmWlncSH9fXxu",
+        "id": "6oFHbDLNTWmWlncSH9fXxu",
+        "name": "Amber Tyler",
+        "type": "artist",
+        "uri": "spotify:artist:6oFHbDLNTWmWlncSH9fXxu"
+      }
+    ]
+  },
+  {
+    "album_type": "single",
+    "total_tracks": 1,
+    "is_playable": true,
+    "external_urls": {
+      "spotify": "https://open.spotify.com/album/2iWGHtTSAeWq7Mm9pjY2vj"
+    },
+    "href": "https://api.spotify.com/v1/albums/2iWGHtTSAeWq7Mm9pjY2vj",
+    "id": "2iWGHtTSAeWq7Mm9pjY2vj",
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/ab67616d0000b273d46d88745b699e7eec15c0c0",
+        "width": 640
+      },
+      {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e02d46d88745b699e7eec15c0c0",
+        "width": 300
+      },
+      {
+        "height": 64,
+        "url": "https://i.scdn.co/image/ab67616d00004851d46d88745b699e7eec15c0c0",
+        "width": 64
+      }
+    ],
+    "name": "Love Song (Karaoke)",
+    "release_date": "2024-05-01",
+    "release_date_precision": "day",
+    "type": "album",
+    "uri": "spotify:album:2iWGHtTSAeWq7Mm9pjY2vj",
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/6oFHbDLNTWmWlncSH9fXxu"
+        },
+        "href": "https://api.spotify.com/v1/artists/6oFHbDLNTWmWlncSH9fXxu",
+        "id": "6oFHbDLNTWmWlncSH9fXxu",
+        "name": "Amber Tyler",
+        "type": "artist",
+        "uri": "spotify:artist:6oFHbDLNTWmWlncSH9fXxu"
+      }
+    ]
+  }
+]

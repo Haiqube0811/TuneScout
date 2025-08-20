@@ -1,6 +1,6 @@
 import httpx
 import base64
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Dict, Optional
 
 from packages.common.settings import settings
@@ -58,118 +58,125 @@ class SpotifyClient:
             response.raise_for_status()
             return response.json()
     
-    async def search_japanese_artists_by_genre(self, genre: str, limit: int = 50) -> List[Dict]:
-        """Search for Japanese artists by specific genre"""
+    async def get_related_artists(self, artist_id: str) -> List[Dict]:
+        """Get related artists"""
         if not self.access_token:
             await self.get_access_token()
             
-        search_queries = [
-            f"genre:{genre} market:JP",
-            f"genre:j-{genre}", 
-            f"genre:japanese-{genre}"
-        ]
-        
-        all_albums = []
         async with httpx.AsyncClient() as client:
-            for query in search_queries:
-                if len(all_albums) >= limit:
-                    break
-                    
-                response = await client.get(
-                    "https://api.spotify.com/v1/search",
-                    headers={"Authorization": f"Bearer {self.access_token}"},
-                    params={
-                        "q": f"{query} year:2024-2025",
-                        "type": "album",
-                        "market": "JP",
-                        "limit": 20
-                    }
-                )
-                if response.status_code == 200:
-                    albums = response.json().get("albums", {}).get("items", [])
-                    all_albums.extend(albums)
-        
-        return all_albums[:limit]
-    
-    async def search_albums_by_country(self, country: str, limit: int = 50) -> List[Dict]:
-        """Search for albums by Japanese artists"""
-        if not self.access_token:
-            await self.get_access_token()
-            
-        all_albums = []
-        async with httpx.AsyncClient() as client:
-            # First try new releases in Japan market
             response = await client.get(
-                "https://api.spotify.com/v1/browse/new-releases",
+                f"https://api.spotify.com/v1/artists/{artist_id}/related-artists",
+                headers={"Authorization": f"Bearer {self.access_token}"}
+            )
+            if response.status_code == 404:
+                print(f"関連アーティストが見つかりません（アーティストID: {artist_id}）")
+                return []
+            response.raise_for_status()
+            return response.json()["artists"]
+    
+    async def get_filtered_related_artists(self, artist_id: str, min_popularity: int = 2, max_popularity: int = 24) -> List[Dict]:
+        """Get related artists filtered by popularity range"""
+        related_artists = await self.get_related_artists(artist_id)
+        return [artist for artist in related_artists if min_popularity <= artist.get("popularity", 0) <= max_popularity]
+    
+    async def search_similar_artists_by_genre(self, artist_id: str, limit: int = 20) -> List[Dict]:
+        """Search similar artists by genre when related artists are not available"""
+        if not self.access_token:
+            await self.get_access_token()
+            
+        # Get original artist info
+        artist_info = await self.get_artist_info(artist_id)
+        genres = artist_info.get("genres", [])
+        
+        if not genres:
+            return []
+            
+        # Search by first genre
+        search_query = f"genre:{genres[0]}"
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                "https://api.spotify.com/v1/search",
                 headers={"Authorization": f"Bearer {self.access_token}"},
-                params={"market": "JP", "limit": limit}
+                params={"q": search_query, "type": "artist", "limit": limit}
             )
             if response.status_code == 200:
-                jp_releases = response.json().get("albums", {}).get("items", [])
-                
-                # Filter for Japanese artists by checking artist info
-                for album in jp_releases:
-                    for artist in album.get("artists", []):
-                        artist_info = await self.get_artist_info(artist["id"])
-                        genres = ["japanese indie", "pop", "electronic", "indie", "metal"]
-                        japanese_music = await sync_japanese_music_by_genres(genres)
-                        # Check if artist has Japanese genres or matches popularity filter
-                        popularity = artist_info.get("popularity", 100)
-                        if (any("j-" in genre.lower() or "japan" in genre.lower() for genre in genres) or
-                            (settings.reco_min_popularity <= popularity <= settings.reco_max_popularity)):
-                            all_albums.append(album)
-                            break
-                    
-                    if len(all_albums) >= limit:
-                        break
-            
-            # If we need more results, search by genre
-            if len(all_albums) < limit:
-                search_queries = [
-                    "genre:j-pop year:2024-2025",
-                    "genre:japanese year:2024-2025",
-                    "genre:jpop year:2024-2025",
-                    "genre:j-rock year:2024-2025"
-                ]
-                
-                for query in search_queries:
-                    if len(all_albums) >= limit:
-                        break
-                        
-                    response = await client.get(
-                        "https://api.spotify.com/v1/search",
-                        headers={"Authorization": f"Bearer {self.access_token}"},
-                        params={
-                            "q": query,
-                            "type": "album",
-                            "market": "JP",
-                            "limit": 10
-                        }
-                    )
-                    if response.status_code == 200:
-                        albums = response.json().get("albums", {}).get("items", [])
-                        all_albums.extend(albums)
-        
-        return all_albums[:limit]
+                artists = response.json().get("artists", {}).get("items", [])
+                # Exclude the original artist
+                return [a for a in artists if a["id"] != artist_id]
+            return []
 
-async def sync_japanese_music_by_genres(genres: List[str]) -> List[Dict]:
-    """Sync Japanese artists across multiple genres"""
+async def sync_yesterday_releases() -> List[Dict]:
+    """日本のアルバム情報を取得し、指定条件のアーティストを返す"""
     client = SpotifyClient()
     all_releases = []
     
-    for genre in genres:
-        releases = await client.search_japanese_artists_by_genre(genre)
-        
-        for release in releases:
-            for artist in release["artists"]:
-                artist_info = await client.get_artist_info(artist["id"])
-                if (settings.reco_min_popularity <= 
-                    artist_info.get("popularity", 0) <= 
-                    settings.reco_max_popularity):
-                    all_releases.append({
-                        "release": release,
-                        "artist": artist_info,
-                        "genre": genre
-                    })
+    # japanese indieアーティストを特定する検索クエリ（2025年6月7日テスト）
+    search_queries = [
+        "japanese indie year:2025",
+        "math rock year:2025",
+        "shoegaze year:2025", 
+        "midwest emo year:2025",
+        "underground japan year:2025"
+    ]
+    
+    async with httpx.AsyncClient() as http_client:
+        for query in search_queries:
+            print(f"検索クエリ: {query}")
+            response = await http_client.get(
+                "https://api.spotify.com/v1/search",
+                headers={"Authorization": f"Bearer {await client.get_access_token()}"},
+                params={"q": query, "type": "album", "market": "JP", "limit": 20}
+            )
+            
+            if response.status_code != 200:
+                print(f"エラー: {response.status_code}")
+                continue
+                
+            albums = response.json().get("albums", {}).get("items", [])
+            print(f"取得アルバム数: {len(albums)}")
+            
+            for album in albums:
+                release_date_str = album.get("release_date", "")
+                
+                # 2025年6月のフィルタリング
+                if release_date_str and not release_date_str.startswith("2025-06"):
+                    continue
+                    
+                print(f"アルバム: {album['name']} ({release_date_str})")
+                    
+                for artist in album.get("artists", []):
+                    try:
+                        artist_info = await client.get_artist_info(artist["id"])
+                        artist_popularity = artist_info.get("popularity", 100)
+                        print(f"  アーティスト: {artist_info['name']} (人気度: {artist_popularity})")
+                        
+                        if not (2 <= artist_popularity <= 24):
+                            print("    アーティスト人気度範囲外")
+                            continue
+                        
+                        artist_genres = [g.lower() for g in artist_info.get("genres", [])]
+                        print(f"    ジャンル: {artist_genres}")
+                        
+                        # japanese indieのみ
+                        has_japanese_indie = "japanese indie" in artist_genres
+                        
+                        if not has_japanese_indie:
+                            print("japanese indieジャンルではない")
+                            continue
+                            
+                        print(f"✓ japanese indieジャンル合致")
+                            
+                        print("    ✓ 条件合致!")
+                        print(f"    アーティストID: {artist_info['id']}")
+                        all_releases.append({
+                            "release": album,
+                            "artist": artist_info,
+                            "artist_id": artist_info['id'],
+                            "genre": "japanese indie"
+                        })
+                    except Exception as e:
+                        print(f"    エラー: {e}")
+                        continue
     
     return all_releases

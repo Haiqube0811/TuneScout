@@ -23,4 +23,5 @@ dependencies = [
     "supabase>=2.0.0",
     "email-validator>=2.2.0",
     "spotipy>=2.25.1",
+    "schedule>=1.2.0",
 ]
